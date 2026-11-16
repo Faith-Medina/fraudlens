@@ -1,0 +1,18 @@
+# Runtime / environment
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.streamlit/secrets.toml
+.DS_Store
+
+# Analyst records and original datasets must never be pushed publicly.
+output/analyst_evaluation/
+data/paysim_full.csv
+data/paysim.csv
+data/paysim_cleaned.csv
+data/test.csv
+data/validation.csv
+# Deliberately track data/train.csv, the frozen SHAP reference pool.
+# Deliberately track output/fraudlens.db and model/scaler artifacts.
