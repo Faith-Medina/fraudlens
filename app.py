@@ -20,6 +20,7 @@ fitted model or model_config.json, so the dashboard cannot drift from the
 pipeline that produced it.
 """
 
+from pathlib import Path
 import json
 import os
 import sqlite3
@@ -35,6 +36,8 @@ from plotly.subplots import make_subplots
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "src"))
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
 import review_mode as rm          # noqa: E402
 import ui_theme as T              # noqa: E402
@@ -1250,7 +1253,7 @@ elif page == "Batch Screening":
         )
         if st.button("Explain this transaction",
                      disabled=st.session_state["public_explanation_uses"]
-                              >= MAX_PUBLIC_EXPLANATIONS):
+                     >= MAX_PUBLIC_EXPLANATIONS):
             st.session_state["public_explanation_uses"] += 1
             with st.spinner("Computing the exact SHAP contributions..."):
                 try:

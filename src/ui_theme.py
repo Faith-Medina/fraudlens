@@ -213,41 +213,47 @@ div[data-testid="stExpander"] summary:hover {{ color:{TURQ}; }}
 
 
 
-/* Turquoise Upload pill */
-[data-testid="stFileUploader"] button {{
-    background: {TURQ} !important;
-    border: none !important;
-    border-radius: 999px !important;
-    padding: 0.65rem 1.8rem !important;
+/* Only the file-picker button. Never style the uploaded-file delete button.
+   Streamlit's upload icon can render as the literal word "upload" when the
+   Material Symbols font is unavailable; cover that native label with one
+   reliably centered visual label on this button only. */
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"],
+[data-testid="stFileUploaderDropzone"] button[kind="secondary"] {{
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     min-width: 160px !important;
     min-height: 52px !important;
-    position: relative !important;
-    font-size: 0 !important;
+    padding: .65rem 1.8rem !important;
+    background-color: {TURQ} !important;
+    border: none !important;
+    border-radius: 999px !important;
     cursor: pointer !important;
 }}
 
-/* Hide original text and icon */
-[data-testid="stFileUploader"] button > * {{
+/* Hide ONLY the original inner content of the browse button. */
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"] > *,
+[data-testid="stFileUploaderDropzone"] button[kind="secondary"] > * {{
     visibility: hidden !important;
 }}
 
-/* Display Upload exactly in the center */
-[data-testid="stFileUploader"] button::after {{
+/* Add one visual label, centered independently of icon-font loading. */
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"]::after,
+[data-testid="stFileUploaderDropzone"] button[kind="secondary"]::after {{
     content: "Upload";
     position: absolute;
     inset: 0;
     display: grid;
     place-items: center;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
+    color: #FFFFFF;
+    font: 600 .9rem 'Inter', 'Segoe UI', sans-serif;
     pointer-events: none;
 }}
 
-/* Hover */
-[data-testid="stFileUploader"] button:hover {{
-    background: {TURQ_DK} !important;
+[data-testid="stFileUploaderDropzone"] button[data-testid="stBaseButton-secondary"]:hover,
+[data-testid="stFileUploaderDropzone"] button[kind="secondary"]:hover {{
+    background-color: {TURQ_DK} !important;
 }}
 
 </style>
