@@ -4,7 +4,6 @@ Separate from app.py so presentation can change without touching analysis.
 Nothing here reads data or computes anything.
 """
 
-from turtle import color
 
 import plotly.graph_objects as go
 import plotly.io as pio
