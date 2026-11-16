@@ -4,6 +4,8 @@ Separate from app.py so presentation can change without touching analysis.
 Nothing here reads data or computes anything.
 """
 
+from turtle import color
+
 import plotly.graph_objects as go
 import plotly.io as pio
 import streamlit as st
@@ -68,18 +70,27 @@ CSS = f"""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
 
-html, body, [class*="st-"], .stMarkdown {{
-    font-family:'Inter','Segoe UI',system-ui,sans-serif;
+html, body, .stMarkdown {{
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }}
 .stApp {{ background:{BG}; }}
-#MainMenu, footer, header {{ visibility:hidden; }}
-/* Hide only the sidebar collapse control. Icon fonts are NOT hidden globally:
-   Streamlit uses Material Symbols ligatures for expander arrows, and hiding
-   the class leaves the raw ligature text visible. The font is imported above
-   so the glyphs render. */
-[data-testid="stSidebarCollapseButton"], [data-testid="collapsedControl"],
-[data-testid="stSidebarCollapsedControl"],
-[data-testid="stSidebarHeader"] {{ display:none !important; }}
+/* Hide Streamlit's default menu and footer only */
+#MainMenu, footer {{
+    visibility: hidden;
+}}
+
+/* Keep Streamlit's sidebar controls accessible */
+header[data-testid="stHeader"] {{
+    visibility: visible !important;
+}}
+
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapsedControl"] {{
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}}
 .block-container {{ padding:1.5rem 2.2rem 3rem 2.2rem; max-width:1520px; }}
 
 /* ------------------------------------------------------------- sidebar */
@@ -255,7 +266,30 @@ div[data-testid="stExpander"] summary:hover {{ color:{TURQ}; }}
 [data-testid="stFileUploaderDropzone"] button[kind="secondary"]:hover {{
     background-color: {TURQ_DK} !important;
 }}
+/* Sidebar toggle icons: preserve native button behavior */
+[data-testid="stSidebarCollapseButton"] [data-testid="stIconMaterial"],
+[data-testid="stSidebarCollapsedControl"] [data-testid="stIconMaterial"],
+[data-testid="collapsedControl"] [data-testid="stIconMaterial"],
+[data-testid="stSidebarCollapseButton"] .material-symbols-rounded,
+[data-testid="stSidebarCollapsedControl"] .material-symbols-rounded,
+[data-testid="collapsedControl"] .material-symbols-rounded {{
+    font-family: "Material Symbols Rounded" !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-feature-settings: "liga" 1 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+}}
 
+/* White sidebar collapse icon */
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarCollapseButton"] [data-testid="stIconMaterial"] {{
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}}
 </style>
 """
 
